@@ -35,3 +35,12 @@
 .news {
     border-bottom: 2px solid black;
 }
+
+.pagination_area {
+    padding: 30px;
+}
+
+.pagination_area nav ul {
+    display: flex;
+    justify-content: center;
+}

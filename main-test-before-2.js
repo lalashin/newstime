@@ -2,11 +2,8 @@ let news = [];
 let page = 1;
 let total_pages = 0;
 let menus = document.querySelectorAll(".menus button");
-
-
 //console.log("menus", menus);
-menus.forEach(menu =>
-    menu.addEventListener("click", (event) => getNewsByTopic(event)));
+menus.forEach(menu => menu.addEventListener("click", (event) => getNewsByTopic(event)));
 
 let searchButton = document.getElementById("search_button");
 // console.log("searchButton");
@@ -124,54 +121,32 @@ const pagenation = () => {
     //total_page
     //page
     //page group
-    let pagenationHTML = ``
     let pageGroup = Math.ceil(page / 5);
     //last
     let last = pageGroup * 5
-    if (last > total_pages) {
-        //마지막 그룹이 5개 이하이면
-        last = total_pages;
-    }
-
     //first
-    // let first = last - 4 변경함
-    let first = last - 4 <= 0 ? 1 : last - 4; //첫그룹이 5이하이면
+    let first = last - 4
     //first~last 페이지 프린트
 
-    if (first >= 6) {
-        pagenationHTML = ` <li class="page-item">
-        <a class="page-link" href="#" aria-label="Previous" onclick="moveToPage(1); return false;">
-          <span aria-hidden="true">&lt;&lt;</span>
-        </a>
-      </li>
-        <li class="page-item">
-        <a class="page-link" href="#" aria-label="Previous" onclick="moveToPage(${page - 1}); return false;">
-          <span aria-hidden="true">&lt;</span>
-        </a>
-      </li>`;
-    }
     // tatal page 3일경우 3개의 페이지만 프린트하는 방법 last, first
     // << >> 이 버튼 만들어주기 맨처음, 맨끝으로 가는 버튼 만들기
     // 내가 그룹1 일때 << < 이 버튼이 없다.
     // 내가 마지막 그룹일때 > >> 버튼이 없다.
 
+
+    let pagenationHTML = ` <li class="page-item">
+    <a class="page-link" href="#" aria-label="Previous" onclick="moveToPage(${page - 1})">
+      <span aria-hidden="true">&lt;</span>
+    </a>
+  </li>`;
     for (let i = first; i <= last; i++) {
         pagenationHTML += ` <li class="page-item ${page == i ? "active" : ""} "><a class="page-link" href="#" onclick="moveToPage(${i})">${i}</a></li>`
     }
-
-    if (last < total_pages) {
-        pagenationHTML += `<li class="page-item">
-        <a class="page-link" href="#" aria-label="Next" onclick="moveToPage(${page + 1}); return false;">
-          <span aria-hidden="true">&gt;</span>
-        </a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next" onclick="moveToPage(${total_pages}); return false;">
-          <span aria-hidden="true">&gt;&gt;</span>
-        </a>
-      </li>`;
-    }
-
+    pagenationHTML += `<li class="page-item">
+    <a class="page-link" href="#" aria-label="Next" onclick="moveToPage(${page + 1})">
+      <span aria-hidden="true">&gt;</span>
+    </a>
+  </li>`;
     document.querySelector(".pagination").innerHTML = pagenationHTML;
 
 }
